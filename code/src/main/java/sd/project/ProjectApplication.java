@@ -11,6 +11,8 @@ import sd.project.data.repository.OrderDetailsJpaRepository;
 import sd.project.data.repository.OrderJpaRepository;
 import sd.project.data.repository.ProductJpaRepository;
 import sd.project.data.repository.SellerJpaRepository;
+import sd.project.presentation.controller.MainController;
+import sd.project.presentation.view.MainView;
 
 @SpringBootApplication
 public class ProjectApplication implements CommandLineRunner{
@@ -26,12 +28,18 @@ public class ProjectApplication implements CommandLineRunner{
 	CategoryJpaRepository categoryRepo;
 	@Autowired
 	SellerJpaRepository sellerRepo;
+	@Autowired
+	MainView mainView;
+	@Autowired
+	MainController controller;
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 	}	
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		mainView.getFrame().setVisible(true);
+		controller.setMainView(mainView);
 		System.out.println(clientRepo.findAll().toString());
 		System.out.println(orderRepo.findAll().toString());
 		System.out.println(orderDetailsRepo.findAll().toString());

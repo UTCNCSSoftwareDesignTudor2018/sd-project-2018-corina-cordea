@@ -1,48 +1,28 @@
-package sd.project.data.entity;
+package sd.project.business.dto;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import sd.project.data.entity.Order;
 
-@Entity
-@Table(name = "clients")
-public class Client {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+public class ClientDto {
 	private int clientId;
-	@Column
 	private String clientName;
-	@Column
 	private String clientEmail;
-	@Column
 	private String clientAddress;
-	@Column
 	private String clientCity;
-	@Column
 	private String clientPincode;
-	@Column
 	private String clientPhoneNumber;
-	@Column
 	private String clientUsername;
-	@Column
 	private String clientPassword;
-	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
 	private List<Order> orders;
 
-	public Client() {
+	public ClientDto() {
 		super();
 	}
 
-	public Client(String clientName, String clientEmail, String clientAddress, String clientCity, String clientPincode,
-			String clientPhoneNumber, String clientUsername, String clientPassword, List<Order> orders) {
+	public ClientDto(String clientName, String clientEmail, String clientAddress, String clientCity,
+			String clientPincode, String clientPhoneNumber, String clientUsername, String clientPassword,
+			List<Order> orders) {
 		super();
 		this.clientName = clientName;
 		this.clientEmail = clientEmail;
@@ -135,14 +115,7 @@ public class Client {
 		this.orders = orders;
 	}
 
-	@Override
-	public String toString() {
-		return "Client [clientId=" + clientId + ", clientName=" + clientName + ", clientEmail=" + clientEmail
-				+ ", clientAddress=" + clientAddress + ", clientCity=" + clientCity + ", clientPincode=" + clientPincode
-				+ ", clientPhoneNumber=" + clientPhoneNumber + "]";
-	}
-
-	public static class ClientBuilder {
+	public static class ClientDtoBuilder {
 
 		private String clientName;
 		private String clientEmail;
@@ -154,53 +127,53 @@ public class Client {
 		private String clientPassword;
 		private List<Order> orders;
 
-		public ClientBuilder clientName(String clientName) {
+		public ClientDtoBuilder clientName(String clientName) {
 			this.clientName = clientName;
 			return this;
 		}
 
-		public ClientBuilder clientEmail(String clientEmail) {
+		public ClientDtoBuilder clientEmail(String clientEmail) {
 			this.clientEmail = clientEmail;
 			return this;
 		}
 
-		public ClientBuilder clientAddress(String clientAddress) {
+		public ClientDtoBuilder clientAddress(String clientAddress) {
 			this.clientAddress = clientAddress;
 			return this;
 		}
 
-		public ClientBuilder clientCity(String clientCity) {
+		public ClientDtoBuilder clientCity(String clientCity) {
 			this.clientCity = clientCity;
 			return this;
 		}
 
-		public ClientBuilder clientPincode(String clientPincode) {
+		public ClientDtoBuilder clientPincode(String clientPincode) {
 			this.clientPincode = clientPincode;
 			return this;
 		}
 
-		public ClientBuilder clientPhoneNumber(String clientPhoneNumber) {
+		public ClientDtoBuilder clientPhoneNumber(String clientPhoneNumber) {
 			this.clientPhoneNumber = clientPhoneNumber;
 			return this;
 		}
 
-		public ClientBuilder clientUsername(String clientUsername) {
+		public ClientDtoBuilder clientUsername(String clientUsername) {
 			this.clientUsername = clientUsername;
 			return this;
 		}
 
-		public ClientBuilder clientPassword(String clientPassword) {
+		public ClientDtoBuilder clientPassword(String clientPassword) {
 			this.clientPassword = clientPassword;
 			return this;
 		}
 
-		public ClientBuilder clientOrders(List<Order> orders) {
+		public ClientDtoBuilder clientOrders(List<Order> orders) {
 			this.orders = orders;
 			return this;
 		}
 
-		public Client create() {
-			return new Client(clientName, clientEmail, clientAddress, clientCity, clientPincode, clientPhoneNumber,
+		public ClientDto create() {
+			return new ClientDto(clientName, clientEmail, clientAddress, clientCity, clientPincode, clientPhoneNumber,
 					clientUsername, clientPassword, orders);
 		}
 
