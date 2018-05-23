@@ -74,16 +74,12 @@ public class MainController {
 	private class CreateAccountButtonActionListener implements ActionListener{
 			public void actionPerformed(ActionEvent event){
 					if(mainView.getClientButton().isSelected()) {
-						ClientView clientView = new ClientView();
-						//clientView.createAccount();
-						//@SuppressWarnings("unused")
-						//ClientController clientController = new ClientController(clientView);
+						clientView.createAccount();
+						clientController.setClientView(clientView);
 					}
 					else if(mainView.getSellerButton().isSelected()) {
-						SellerView writerView = new SellerView();
-						//writerView.createAccount();
-						//@SuppressWarnings("unused")
-						//SellerController writerController = new SellerController(writerView);
+						sellerView.createAccount();
+						sellerController.setSellerView(sellerView);	
 					}
 				}
 	}
