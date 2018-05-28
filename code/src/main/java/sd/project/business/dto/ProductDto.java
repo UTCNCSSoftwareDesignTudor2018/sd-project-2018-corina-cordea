@@ -8,7 +8,7 @@ public class ProductDto {
 	private String productName;
 	private float productPrice;
 	private float productQuantity;
-	private byte[] productImage;
+	private String productImage;
 	private Seller seller;
 	private Category category;
 
@@ -44,11 +44,11 @@ public class ProductDto {
 		this.productQuantity = productQuantity;
 	}
 
-	public byte[] getProductImage() {
+	public String getProductImage() {
 		return productImage;
 	}
 
-	public void setProductImage(byte[] productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 

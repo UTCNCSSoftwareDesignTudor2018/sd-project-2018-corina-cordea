@@ -40,14 +40,14 @@ public class ClientView {
 	}
 	private void initialize() {
 		clientFrame = new JFrame("Client");
-		clientFrame.setBounds(100, 100, 600, 400);
+		clientFrame.setBounds(0, 0, 600, 400);
 		clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		clientFrame.setLocationRelativeTo(null);
 		clientFrame.getContentPane().setLayout(null);
 		
 		clientPanel = new JPanel();
 		clientPanel.setLayout(null);
-		clientPanel.setBounds(100, 100, 600, 400);
+		clientPanel.setBounds(0, 0, 600, 400);
 		clientPanel.setVisible(true);
 		clientFrame.getContentPane().add(clientPanel);
 		

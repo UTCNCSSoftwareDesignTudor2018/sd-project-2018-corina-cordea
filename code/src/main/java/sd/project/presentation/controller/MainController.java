@@ -12,6 +12,7 @@ import sd.project.business.service.ClientService;
 import sd.project.business.service.SellerService;
 import sd.project.presentation.view.ClientView;
 import sd.project.presentation.view.MainView;
+import sd.project.presentation.view.ProductView;
 import sd.project.presentation.view.SellerView;
 
 @Controller
@@ -28,6 +29,10 @@ public class MainController {
 	SellerView sellerView;
 	@Autowired
 	SellerController sellerController;
+	@Autowired
+	ProductView productView;
+	@Autowired
+	ProductController productController;
 	private MainView mainView;
 	private String user;
 	private String password;
@@ -60,6 +65,9 @@ public class MainController {
 						try {
 							String pass = sellerService.findSeller(user);
 							if(pass.equals(password)) {
+								productController.setProductView(productView);
+								productController.displayProducts();
+								sellerView.setSellerFrame(productView.getProductFrame());
 								sellerView.getSellerFrame().setVisible(true);
 								sellerController.setSellerView(sellerView);	
 							}

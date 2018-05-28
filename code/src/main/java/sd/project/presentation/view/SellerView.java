@@ -31,14 +31,14 @@ public class SellerView {
 		}
 		private void initialize() {
 			sellerFrame = new JFrame("Seller");
-			sellerFrame.setBounds(100, 100, 600, 400);
+			sellerFrame.setBounds(0, 0, 600, 400);
 			sellerFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			sellerFrame.setLocationRelativeTo(null);
 			sellerFrame.getContentPane().setLayout(null);
 			
 			sellerPanel = new JPanel();
 			sellerPanel.setLayout(null);
-			sellerPanel.setBounds(100, 100, 600, 400);
+			sellerPanel.setBounds(0, 0, 600, 400);
 			sellerPanel.setVisible(true);
 			sellerFrame.getContentPane().add(sellerPanel);
 			

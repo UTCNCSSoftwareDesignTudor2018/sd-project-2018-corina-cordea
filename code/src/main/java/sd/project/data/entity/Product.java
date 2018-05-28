@@ -23,7 +23,7 @@ public class Product {
 	@Column
 	private float productQuantity;
 	@Column
-	private byte[] productImage; 
+	private String productImage; 
 	@ManyToOne
 	@JoinColumn(name = "seller_id")
 	private Seller seller;
@@ -66,16 +66,17 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public byte[] getProductImage() {
+	public String getProductImage() {
 		return productImage;
 	}
-	public void setProductImage(byte[] productImage) {
+	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", productQuantity=" + productQuantity + ", seller=" + seller + ", category=" + category + "]";
+				+ ", productQuantity=" + productQuantity 
+				+ ", seller=" + seller + ", category=" + category + "]";
 	}
 	
 }
