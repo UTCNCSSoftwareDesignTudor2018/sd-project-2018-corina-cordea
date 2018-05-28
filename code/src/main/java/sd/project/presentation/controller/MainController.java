@@ -53,6 +53,9 @@ public class MainController {
 						try {
 							String pass = clientService.findClient(user);
 							if(pass.equals(password)) {
+								productController.setProductView(productView);
+								productController.displayProducts();
+								clientView.setClientFrame(productView.getProductFrame());
 								clientView.getClientFrame().setVisible(true);
 								clientController.setClientView(clientView); 
 							}

@@ -61,4 +61,20 @@ public class ProductService {
 		}
 		return categoriesDto;
 	}
+	
+	public Category findCategoryByName(String name) {	
+		return categoryJpaRepository.findByCategoryName(name);
+	}
+	
+	public void updateProduct(ProductDto p) {
+		Product product = new Product();
+		product.setProductId(p.getProductId());
+		product.setProductName(p.getProductName());
+		product.setProductPrice(p.getProductPrice());
+		product.setProductQuantity(p.getProductQuantity());
+		product.setProductImage(p.getProductImage());
+		product.setCategory(p.getCategory());
+		product.setSeller(p.getSeller());
+		productJpaRepository.save(product);
+	}
 }

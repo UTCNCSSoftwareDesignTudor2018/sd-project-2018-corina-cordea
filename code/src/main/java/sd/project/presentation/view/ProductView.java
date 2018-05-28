@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import org.springframework.stereotype.Component;
 
@@ -21,7 +24,21 @@ public class ProductView {
 	private JScrollPane scroll;
 	private JLabel category;
 	private JComboBox<String> categories;
-
+	
+	private JComboBox<String> productCategories;
+	private JFrame updateProductFrame;
+	private JPanel updateProductPanel;
+	private GridLayout updateProductLayout;
+	private JLabel productName;
+	private JTextField productNameField;
+	private JLabel productPrice;
+	private JTextField productPriceField;
+	private JLabel productQuantity;
+	private JTextField productQuantityField;
+	private JLabel productImage;
+	private JButton changeImage;
+	private JLabel productCategory;
+	private JButton updateProduct;
 	public ProductView() {
 		initialize();
 	}
@@ -60,8 +77,51 @@ public class ProductView {
 		
 		productFrame.add(scroll);
 		productFrame.add(northOnlyPanel);
+		
+		updateProduct = new JButton("Update Product");
+		changeImage = new JButton("Choose image");
 	}
-
+	public void updateProduct() {
+		updateProductFrame = new JFrame();
+		updateProductFrame.setBounds(0, 0, 600, 400);
+		updateProductFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		updateProductFrame.setLocationRelativeTo(null);
+		updateProductFrame.getContentPane().setLayout(null);
+		
+		updateProductPanel = new JPanel();
+		updateProductLayout = new GridLayout(0, 2);
+		updateProductPanel.setLayout(updateProductLayout);
+		updateProductPanel.setBounds(30, 50, 500, 300);
+		updateProductPanel.setVisible(true);
+		
+		updateProduct.setBounds(200, 10, 200, 30);
+		updateProductFrame.getContentPane().add(updateProduct);
+		
+		productName = new JLabel("Product Name");
+		updateProductPanel.add(productName);
+		productNameField = new JTextField();
+		updateProductPanel.add(productNameField);
+		productPrice = new JLabel("Product Price");
+		updateProductPanel.add(productPrice);
+		productPriceField = new JTextField();
+		updateProductPanel.add(productPriceField);
+		productQuantity = new JLabel("Product Quantity");
+		updateProductPanel.add(productQuantity);
+		productQuantityField = new JTextField();
+		updateProductPanel.add(productQuantityField);
+		productCategory = new JLabel("Product Category");
+		updateProductPanel.add(productCategory);
+		productCategories = new JComboBox<String>();
+		updateProductPanel.add(productCategories);
+		changeImage.setHorizontalAlignment(SwingConstants.LEFT);
+		changeImage.setOpaque(false);
+		changeImage.setContentAreaFilled(false);
+		changeImage.setBorderPainted(false);
+		updateProductPanel.add(changeImage);
+		productImage = new JLabel();
+		updateProductPanel.add(productImage);
+		updateProductFrame.add(updateProductPanel);
+	}
 	public JPanel getNorthOnlyPanel() {
 		return northOnlyPanel;
 	}
@@ -120,5 +180,124 @@ public class ProductView {
 	public void setComboBoxActionListener(ActionListener actionListener) {
 		categories.addActionListener(actionListener);
 	}
+
+	public JFrame getUpdateProductFrame() {
+		return updateProductFrame;
+	}
+
+	public void setUpdateProductFrame(JFrame updateProductFrame) {
+		this.updateProductFrame = updateProductFrame;
+	}
+
+	public JPanel getUpdateProductPanel() {
+		return updateProductPanel;
+	}
+
+	public void setUpdateProductPanel(JPanel updateProductPanel) {
+		this.updateProductPanel = updateProductPanel;
+	}
+
+	public GridLayout getUpdateProductLayout() {
+		return updateProductLayout;
+	}
+
+	public void setUpdateProductLayout(GridLayout updateProductLayout) {
+		this.updateProductLayout = updateProductLayout;
+	}
+
+	public JLabel getProductName() {
+		return productName;
+	}
+
+	public void setProductName(JLabel productName) {
+		this.productName = productName;
+	}
+
+	public JTextField getProductNameField() {
+		return productNameField;
+	}
+
+	public void setProductNameField(JTextField productNameField) {
+		this.productNameField = productNameField;
+	}
+
+	public JLabel getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(JLabel productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public JTextField getProductPriceField() {
+		return productPriceField;
+	}
+
+	public void setProductPriceField(JTextField productPriceField) {
+		this.productPriceField = productPriceField;
+	}
+
+	public JLabel getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(JLabel productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	public JTextField getProductQuantityField() {
+		return productQuantityField;
+	}
+
+	public void setProductQuantityField(JTextField productQuantityField) {
+		this.productQuantityField = productQuantityField;
+	}
+
+	public JLabel getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(JLabel productImage) {
+		this.productImage = productImage;
+	}
+
+	public JButton getUpdateProduct() {
+		return updateProduct;
+	}
+
+	public void setUpdateProduct(JButton updateProduct) {
+		this.updateProduct = updateProduct;
+	}
+
+	public JLabel getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(JLabel productCategory) {
+		this.productCategory = productCategory;
+	}
 	
+	public JComboBox<String> getProductCategories() {
+		return productCategories;
+	}
+
+	public void setProductCategories(JComboBox<String> productCategories) {
+		this.productCategories = productCategories;
+	}
+
+	public JButton getChangeImage() {
+		return changeImage;
+	}
+
+	public void setChangeImage(JButton changeImage) {
+		this.changeImage = changeImage;
+	}
+
+	public void setChangeImageActionListener(ActionListener actionListener) {
+		changeImage.addActionListener(actionListener);
+	}
+	
+	public void setUpdateProductActionListener(ActionListener actionListener) {
+		updateProduct.addActionListener(actionListener);
+	}
 }
