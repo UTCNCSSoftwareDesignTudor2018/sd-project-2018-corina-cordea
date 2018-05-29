@@ -30,8 +30,6 @@ public class MainController {
 	@Autowired
 	SellerController sellerController;
 	@Autowired
-	ProductView productView;
-	@Autowired
 	ProductController productController;
 	private MainView mainView;
 	private String user;
@@ -53,9 +51,13 @@ public class MainController {
 						try {
 							String pass = clientService.findClient(user);
 							if(pass.equals(password)) {
+								ProductView productView = new ProductView();
 								productController.setProductView(productView);
 								productController.displayProducts();
+								productController.setListeners();
+								productController.setUserType("client");
 								clientView.setClientFrame(productView.getProductFrame());
+								clientView.getClientFrame().add(clientView.getMenuBar());
 								clientView.getClientFrame().setVisible(true);
 								clientController.setClientView(clientView); 
 							}
@@ -68,8 +70,11 @@ public class MainController {
 						try {
 							String pass = sellerService.findSeller(user);
 							if(pass.equals(password)) {
+								ProductView productView = new ProductView();
 								productController.setProductView(productView);
 								productController.displayProducts();
+								productController.setListeners();
+								productController.setUserType("seller");
 								sellerView.setSellerFrame(productView.getProductFrame());
 								sellerView.getSellerFrame().setVisible(true);
 								sellerController.setSellerView(sellerView);	

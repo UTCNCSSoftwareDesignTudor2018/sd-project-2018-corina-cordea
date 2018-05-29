@@ -36,11 +36,11 @@ public class SellerView {
 			sellerFrame.setLocationRelativeTo(null);
 			sellerFrame.getContentPane().setLayout(null);
 			
-			sellerPanel = new JPanel();
-			sellerPanel.setLayout(null);
-			sellerPanel.setBounds(0, 0, 600, 400);
-			sellerPanel.setVisible(true);
-			sellerFrame.getContentPane().add(sellerPanel);
+			//sellerPanel = new JPanel();
+			//sellerPanel.setLayout(null);
+			//sellerPanel.setBounds(0, 0, 600, 400);
+			//sellerPanel.setVisible(true);
+			//sellerFrame.getContentPane().add(sellerPanel);
 			
 			saveDataButton = new JButton("Save Data");
 		}

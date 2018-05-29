@@ -39,6 +39,10 @@ public class ProductView {
 	private JButton changeImage;
 	private JLabel productCategory;
 	private JButton updateProduct;
+	
+	private JButton addToCart;
+	private JLabel desiredQuantity;
+	private JTextField desiredQuantityField;
 	public ProductView() {
 		initialize();
 	}
@@ -67,19 +71,20 @@ public class ProductView {
 		scroll.setBounds(30, 50, 500, 300);
 		
 		category = new JLabel("Category: ");
-		category.setBounds(30, 20, 100, 20);
+		category.setBounds(30, 25, 100, 20);
 		productFrame.getContentPane().add(category);
 		
 		categories = new JComboBox<String>();
-		categories.setBounds(130, 20, 150, 20);
+		categories.setBounds(130, 25, 150, 20);
 		categories.addItem("All");
 		productFrame.getContentPane().add(categories);
 		
-		productFrame.add(scroll);
-		productFrame.add(northOnlyPanel);
+		productFrame.getContentPane().add(scroll);
+		productFrame.getContentPane().add(northOnlyPanel);
 		
 		updateProduct = new JButton("Update Product");
 		changeImage = new JButton("Choose image");
+		addToCart = new JButton("Add to cart");
 	}
 	public void updateProduct() {
 		updateProductFrame = new JFrame();
@@ -118,6 +123,53 @@ public class ProductView {
 		changeImage.setContentAreaFilled(false);
 		changeImage.setBorderPainted(false);
 		updateProductPanel.add(changeImage);
+		productImage = new JLabel();
+		updateProductPanel.add(productImage);
+		updateProductFrame.add(updateProductPanel);
+	}
+	public void viewProduct() {
+		updateProductFrame = new JFrame();
+		updateProductFrame.setBounds(0, 0, 600, 400);
+		updateProductFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		updateProductFrame.setLocationRelativeTo(null);
+		updateProductFrame.getContentPane().setLayout(null);
+		
+		updateProductPanel = new JPanel();
+		updateProductLayout = new GridLayout(0, 2);
+		updateProductPanel.setLayout(updateProductLayout);
+		updateProductPanel.setBounds(30, 50, 500, 300);
+		updateProductPanel.setVisible(true);
+		
+		desiredQuantity = new JLabel("Quantity");
+		desiredQuantity.setBounds(50,10,100,30);
+		updateProductFrame.getContentPane().add(desiredQuantity);
+		desiredQuantityField = new JTextField();
+		desiredQuantityField.setBounds(170, 10, 100, 30);
+		updateProductFrame.getContentPane().add(desiredQuantityField);
+		addToCart.setBounds(320, 10, 150, 30);
+		updateProductFrame.getContentPane().add(addToCart);
+		
+		productName = new JLabel("Product Name");
+		updateProductPanel.add(productName);
+		productNameField = new JTextField();
+		productNameField.setEditable(false);
+		updateProductPanel.add(productNameField);
+		productPrice = new JLabel("Product Price");
+		updateProductPanel.add(productPrice);
+		productPriceField = new JTextField();
+		productPriceField.setEditable(false);
+		updateProductPanel.add(productPriceField);
+		productQuantity = new JLabel("Product Quantity");
+		updateProductPanel.add(productQuantity);
+		productQuantityField = new JTextField();
+		productQuantityField.setEditable(false);
+		updateProductPanel.add(productQuantityField);
+		productCategory = new JLabel("Product Category");
+		updateProductPanel.add(productCategory);
+		productCategories = new JComboBox<String>();
+		updateProductPanel.add(productCategories);
+		productCategories.setEditable(false);
+		updateProductPanel.add(new JLabel());
 		productImage = new JLabel();
 		updateProductPanel.add(productImage);
 		updateProductFrame.add(updateProductPanel);
@@ -293,11 +345,39 @@ public class ProductView {
 		this.changeImage = changeImage;
 	}
 
+	public JButton getAddToCart() {
+		return addToCart;
+	}
+
+	public void setAddToCart(JButton addToCart) {
+		this.addToCart = addToCart;
+	}
+
+	public JLabel getDesiredQuantity() {
+		return desiredQuantity;
+	}
+
+	public void setDesiredQuantity(JLabel desiredQuantity) {
+		this.desiredQuantity = desiredQuantity;
+	}
+
+	public JTextField getDesiredQuantityField() {
+		return desiredQuantityField;
+	}
+
+	public void setDesiredQuantityField(JTextField desiredQuantityField) {
+		this.desiredQuantityField = desiredQuantityField;
+	}
+
 	public void setChangeImageActionListener(ActionListener actionListener) {
 		changeImage.addActionListener(actionListener);
 	}
 	
 	public void setUpdateProductActionListener(ActionListener actionListener) {
 		updateProduct.addActionListener(actionListener);
+	}
+	
+	public void setAddToCartActionListener(ActionListener actionListener) {
+		addToCart.addActionListener(actionListener);
 	}
 }

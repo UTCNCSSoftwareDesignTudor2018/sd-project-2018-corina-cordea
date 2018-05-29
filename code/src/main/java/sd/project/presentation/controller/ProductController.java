@@ -10,30 +10,41 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import sd.project.business.dto.CartProduct;
 import sd.project.business.dto.CategoryDto;
 import sd.project.business.dto.ProductDto;
 import sd.project.business.service.ProductService;
 import sd.project.presentation.proxy.Image;
 import sd.project.presentation.proxy.ImageProxy;
+import sd.project.presentation.view.ClientView;
 import sd.project.presentation.view.ProductView;
 
 @Controller
 public class ProductController {
 	@Autowired
 	ProductService productService;
+	@Autowired
+	ClientView clientView;
 	private ProductView productView;
 	private ProductDto product;
-	
+	private String userType;
+
 	public ProductController(ProductView productView) {
 		super();
 		this.productView = productView;
+		
+	}
+	
+	public void setListeners() {
 		productView.setComboBoxActionListener(new ComboBoxActionListener());
 		productView.setChangeImageActionListener(new ChangeImageActionListener());
 		productView.setUpdateProductActionListener(new UpdateProductActionListener());
+		productView.setAddToCartActionListener(new AddToCartActionListener());
 	}
 	
 	private class ComboBoxActionListener implements ActionListener{
@@ -66,7 +77,11 @@ public class ProductController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			product = productService.findProductByImage(e.getActionCommand());
-			productView.updateProduct();
+			if(userType.equals("seller")) {
+				productView.updateProduct();
+			}else {
+				productView.viewProduct();
+			}
 			ArrayList<CategoryDto> categories = productService.findCategories();
 			for(CategoryDto c: categories) {
 				productView.getProductCategories().addItem(c.getCategoryName());
@@ -118,6 +133,23 @@ public class ProductController {
 		}
 	}
 	
+	private class AddToCartActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(Float.parseFloat(productView.getDesiredQuantityField().getText())<Float.parseFloat(productView.getProductQuantityField().getText())) {
+			CartProduct cartProduct = new CartProduct(product, Float.parseFloat(productView.getDesiredQuantityField().getText()));
+			clientView.getShoppingCart().getCart().add(cartProduct);
+			float q = product.getProductQuantity()-Float.parseFloat(productView.getDesiredQuantityField().getText());
+			product.setProductQuantity(q);
+			productService.updateProduct(product);
+			}else {
+				JOptionPane.showMessageDialog(productView.getProductFrame(),"The quantity introduced is not available!");
+			}
+			productView.getUpdateProductFrame().dispose();
+		}
+	}
+	
 	public void displayProducts() {
 		ArrayList<CategoryDto> categories = productService.findCategories();
 		for(CategoryDto c: categories) {
@@ -140,5 +172,11 @@ public class ProductController {
 	public void setProductView(ProductView productView) {
 		this.productView = productView;
 	}
-	
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 }
