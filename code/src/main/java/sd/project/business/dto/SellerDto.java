@@ -15,8 +15,9 @@ public class SellerDto {
 		super();
 	}
 
-	public SellerDto(String sellerName, String sellerUsername, String sellerPassword, List<Product> products) {
+	public SellerDto(int sellerId, String sellerName, String sellerUsername, String sellerPassword, List<Product> products) {
 		super();
+		this.sellerId = sellerId;
 		this.sellerName = sellerName;
 		this.sellerUsername = sellerUsername;
 		this.sellerPassword = sellerPassword;
@@ -64,11 +65,17 @@ public class SellerDto {
 	}
 	public static class SellerDtoBuilder {
 
+		private int sellerId;
 		private String sellerName;
 		private String sellerUsername;
 		private String sellerPassword;
 		private List<Product> products;
 
+		public SellerDtoBuilder sellerId(int sellerId) {
+			this.sellerId = sellerId;
+			return this;
+		}
+		
 		public SellerDtoBuilder sellerName(String sellerName) {
 			this.sellerName = sellerName;
 			return this;
@@ -90,7 +97,7 @@ public class SellerDto {
 		}
 
 		public SellerDto create() {
-			return new SellerDto(sellerName, sellerUsername, sellerPassword, products);
+			return new SellerDto(sellerId, sellerName, sellerUsername, sellerPassword, products);
 		}
 	}
 }

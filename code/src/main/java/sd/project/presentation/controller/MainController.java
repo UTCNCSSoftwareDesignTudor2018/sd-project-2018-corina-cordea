@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import sd.project.business.dto.ClientDto;
+import sd.project.business.dto.SellerDto;
 import sd.project.business.service.ClientService;
 import sd.project.business.service.SellerService;
 import sd.project.presentation.view.ClientView;
@@ -49,7 +51,9 @@ public class MainController {
 				password = mainView.getPasswordField().getText();
 					if(mainView.getClientButton().isSelected()) {
 						try {
-							String pass = clientService.findClient(user);
+							ClientDto client = clientService.findClient(user);
+							String pass = client.getClientPassword();
+							clientController.setClient(client);
 							if(pass.equals(password)) {
 								ProductView productView = new ProductView();
 								productController.setProductView(productView);
@@ -59,6 +63,7 @@ public class MainController {
 								clientView.setClientFrame(productView.getProductFrame());
 								clientView.getClientFrame().add(clientView.getMenuBar());
 								clientView.getClientFrame().setVisible(true);
+								clientView.getClientFrame().setTitle("Client");
 								clientController.setClientView(clientView); 
 							}
 						}
@@ -68,7 +73,9 @@ public class MainController {
 					}
 					else if(mainView.getSellerButton().isSelected()) {
 						try {
-							String pass = sellerService.findSeller(user);
+							SellerDto seller = sellerService.findSeller(user);
+							String pass = seller.getSellerPassword();
+							sellerController.setSeller(seller);
 							if(pass.equals(password)) {
 								ProductView productView = new ProductView();
 								productController.setProductView(productView);
@@ -76,7 +83,9 @@ public class MainController {
 								productController.setListeners();
 								productController.setUserType("seller");
 								sellerView.setSellerFrame(productView.getProductFrame());
+								sellerView.getSellerFrame().add(sellerView.getMenuBar());
 								sellerView.getSellerFrame().setVisible(true);
+								sellerView.getSellerFrame().setTitle("Seller");
 								sellerController.setSellerView(sellerView);	
 							}
 						}

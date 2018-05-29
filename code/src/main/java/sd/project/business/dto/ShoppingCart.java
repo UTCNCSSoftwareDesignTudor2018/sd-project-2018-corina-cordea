@@ -16,4 +16,21 @@ public class ShoppingCart {
 		this.cart = cart;
 	}
 	
+	public void removeProduct(ProductDto product) {
+		CartProduct cartProduct = new CartProduct(null,0);
+		for(CartProduct p: cart) {
+			if(p.getProduct().getProductName().equals(product.getProductName())) {
+				cartProduct = p;
+			}
+		}
+		cart.remove(cartProduct);
+	}
+	
+	public float computeSum() {
+		float sum = 0;
+		for(CartProduct p: cart) {
+			sum += p.getProduct().getProductPrice()*p.getQuantity();
+		}
+		return sum;
+	}
 }

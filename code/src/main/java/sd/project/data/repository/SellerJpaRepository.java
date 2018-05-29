@@ -6,4 +6,5 @@ import sd.project.data.entity.Seller;
 
 public interface SellerJpaRepository extends JpaRepository<Seller,Integer>{
 	public Seller findBySellerUsername(String sellerUsername);
+	public Seller findBySellerId(int id);
 }

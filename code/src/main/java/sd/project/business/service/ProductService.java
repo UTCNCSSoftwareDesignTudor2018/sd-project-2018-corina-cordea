@@ -49,6 +49,19 @@ public class ProductService {
 		return pDto;
 	}
 	
+	public ProductDto findProductByName(String name) {	
+		Product p = productJpaRepository.findByProductName(name);
+			ProductDto pDto = new ProductDto();
+			pDto.setProductId(p.getProductId());
+			pDto.setCategory(p.getCategory());
+			pDto.setProductImage(p.getProductImage());
+			pDto.setProductName(p.getProductName());
+			pDto.setProductPrice(p.getProductPrice());
+			pDto.setProductQuantity(p.getProductQuantity());
+			pDto.setSeller(p.getSeller());
+		return pDto;
+	}
+	
 	public ArrayList<CategoryDto> findCategories() {	
 		List<Category> categories = categoryJpaRepository.findAll();
 		ArrayList<CategoryDto> categoriesDto = new ArrayList<>();
@@ -76,5 +89,11 @@ public class ProductService {
 		product.setCategory(p.getCategory());
 		product.setSeller(p.getSeller());
 		productJpaRepository.save(product);
+	}
+	
+	public void addCategory(String name) {
+		Category category = new Category();
+		category.setCategoryName(name);
+		categoryJpaRepository.save(category);
 	}
 }

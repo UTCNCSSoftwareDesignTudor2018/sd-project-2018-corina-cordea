@@ -6,4 +6,5 @@ import sd.project.data.entity.Client;
 
 public interface ClientJpaRepository extends JpaRepository<Client,Integer>{
 	public Client findByClientUsername(String clientUsername);
+	public Client findByClientId(int id);
 }

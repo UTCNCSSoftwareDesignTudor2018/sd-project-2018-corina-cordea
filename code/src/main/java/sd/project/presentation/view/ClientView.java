@@ -13,7 +13,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +56,16 @@ public class ClientView {
 	private JFrame cartFrame;
 	private JPanel cartPanel;
 	private JTable products;
-	private JButton updateProductButton;
 	private JButton deleteProductButton;
 	private JLabel productLabel;
 	private JTextField productTextField;
 	private JLabel quantityLabel;
 	private JTextField quantityTextField;
+	private JLabel totalPrice;
+	private JLabel totalPriceSum;
+	private ListSelectionModel rowSelectionModel;
+	private JButton createOrderButton;
+	
 	public ClientView() {
 		initialize();
 	}
@@ -78,8 +84,10 @@ public class ClientView {
 		menuOptions.add(menuItemViewCart);
 		
 		saveDataButton = new JButton("Save Data");
-		updateProductButton = new JButton("Update");
 		deleteProductButton = new JButton("Delete");
+		createOrderButton = new JButton("Create Order");
+		products = new JTable();
+		rowSelectionModel = products.getSelectionModel();
 	}
 	public void createAccount() {
 		accountFrame = new JFrame("Client");
@@ -175,9 +183,10 @@ public class ClientView {
 		cartPanel.setBounds(0, 0, 600, 400);
 		cartPanel.setVisible(true);
 		
-		products = new JTable();
 		products.setBounds(30, 50, 400, 200);
 		products.setVisible(true);	
+		products.setRowSelectionAllowed(true);
+		rowSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		cartPanel.add(products);
 		JScrollPane scrollPane = new JScrollPane(products);
@@ -186,11 +195,10 @@ public class ClientView {
 		scrollPane.setBounds(30, 50, 400, 200);
 		cartFrame.add(scrollPane);
 		
-
-		updateProductButton.setBounds(460, 200, 100, 20);
-		cartPanel.add(updateProductButton);
+		createOrderButton.setBounds(280, 270, 150, 20);
+		cartPanel.add(createOrderButton);
 		
-		deleteProductButton.setBounds(460, 170, 100, 20);
+		deleteProductButton.setBounds(460, 200, 100, 20);
 		cartPanel.add(deleteProductButton);
 		
 		productLabel = new JLabel("Product");
@@ -208,7 +216,16 @@ public class ClientView {
 		
 		quantityTextField = new JTextField();
 		quantityTextField.setBounds(460, 140, 100, 20);
+		quantityTextField.setEditable(false);
 		cartPanel.add(quantityTextField);
+		
+		totalPrice = new JLabel("Total Price: ");
+		totalPrice.setBounds(30, 270, 70, 20);
+		cartPanel.add(totalPrice);
+		
+		totalPriceSum = new JLabel();
+		totalPriceSum.setBounds(100, 270, 50, 20);
+		cartPanel.add(totalPriceSum);
 		
 		cartFrame.add(cartPanel);
 	}
@@ -380,12 +397,6 @@ public class ClientView {
 	public void setProducts(JTable products) {
 		this.products = products;
 	}
-	public JButton getUpdateProductButton() {
-		return updateProductButton;
-	}
-	public void setUpdateProductButton(JButton updateProductButton) {
-		this.updateProductButton = updateProductButton;
-	}
 	public JLabel getProductLabel() {
 		return productLabel;
 	}
@@ -410,14 +421,53 @@ public class ClientView {
 	public void setQuantityTextField(JTextField quantityTextField) {
 		this.quantityTextField = quantityTextField;
 	}
+	public JButton getDeleteProductButton() {
+		return deleteProductButton;
+	}
+	public void setDeleteProductButton(JButton deleteProductButton) {
+		this.deleteProductButton = deleteProductButton;
+	}
+	public JLabel getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(JLabel totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public JLabel getTotalPriceSum() {
+		return totalPriceSum;
+	}
+	public void setTotalPriceSum(JLabel totalPriceSum) {
+		this.totalPriceSum = totalPriceSum;
+	}
+	public ListSelectionModel getRowSelectionModel() {
+		return rowSelectionModel;
+	}
+	public void setRowSelectionModel(ListSelectionModel rowSelectionModel) {
+		this.rowSelectionModel = rowSelectionModel;
+	}
+	public JButton getCreateOrderButton() {
+		return createOrderButton;
+	}
+	public void setCreateOrderButton(JButton createOrderButton) {
+		this.createOrderButton = createOrderButton;
+	}
 	public DefaultTableModel getProductTableModel() {
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Product Name", "Quantity"},0);
 		return tableModel;
+	}
+	public void setTableListener(ListSelectionListener listListener) {
+		rowSelectionModel.addListSelectionListener(listListener);
 	}
 	public void  setSaveDataButtonActionListener(ActionListener actionListener) {
 		saveDataButton.addActionListener(actionListener);
 	}
 	public void  setMenuItemViewCartActionListener(ActionListener actionListener) {
 		menuItemViewCart.addActionListener(actionListener);
+	}
+	public void  setDeleteButtonActionListener(ActionListener actionListener) {
+		deleteProductButton.addActionListener(actionListener);
+	}
+	public void  setOrderButtonActionListener(ActionListener actionListener) {
+		createOrderButton.addActionListener(actionListener);
 	}
 }

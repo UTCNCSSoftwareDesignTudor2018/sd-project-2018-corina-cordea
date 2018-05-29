@@ -1,13 +1,18 @@
 package sd.project.presentation.view;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +31,25 @@ public class SellerView {
 		private JTextField usernameTextField;
 		private JLabel password;
 		private JPasswordField passwordTextField;
+		
+		private JMenuBar menuBar;
+		private JMenu menuOptions;
+		private JMenuItem menuItemAddProduct;
+		
+		private JTextField productCategoryField;
+		private JFrame addProductFrame;
+		private JPanel addProductPanel;
+		private GridLayout addProductLayout;
+		private JLabel productName;
+		private JTextField productNameField;
+		private JLabel productPrice;
+		private JTextField productPriceField;
+		private JLabel productQuantity;
+		private JTextField productQuantityField;
+		private JLabel productImage;
+		private JButton addImage;
+		private JLabel productCategory;
+		private JButton addProduct;
 		public SellerView() {
 			initialize();
 		}
@@ -36,13 +60,16 @@ public class SellerView {
 			sellerFrame.setLocationRelativeTo(null);
 			sellerFrame.getContentPane().setLayout(null);
 			
-			//sellerPanel = new JPanel();
-			//sellerPanel.setLayout(null);
-			//sellerPanel.setBounds(0, 0, 600, 400);
-			//sellerPanel.setVisible(true);
-			//sellerFrame.getContentPane().add(sellerPanel);
+			menuBar = new JMenuBar();
+			menuBar.setBounds(0, 0, 600, 20);
+			menuOptions = new JMenu("Options");
+			menuBar.add(menuOptions);
+			menuItemAddProduct = new JMenuItem("Add Product");
+			menuOptions.add(menuItemAddProduct);
 			
 			saveDataButton = new JButton("Save Data");
+			addProduct = new JButton("Add Product");
+			addImage = new JButton("Add Image");
 		}
 		public void createAccount() {
 			accountFrame = new JFrame("Seller");
@@ -85,6 +112,47 @@ public class SellerView {
 			accountPanel.add(saveDataButton);
 			
 			accountFrame.getContentPane().add(accountPanel);
+		}
+		public void addProduct() {
+			addProductFrame = new JFrame();
+			addProductFrame.setBounds(0, 0, 600, 400);
+			addProductFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			addProductFrame.setLocationRelativeTo(null);
+			addProductFrame.getContentPane().setLayout(null);
+			
+			addProductPanel = new JPanel();
+			addProductLayout = new GridLayout(0, 2);
+			addProductPanel.setLayout(addProductLayout);
+			addProductPanel.setBounds(30, 50, 500, 300);
+			addProductPanel.setVisible(true);
+			
+			addProduct.setBounds(200, 10, 200, 30);
+			addProductFrame.getContentPane().add(addProduct);
+			
+			productName = new JLabel("Product Name");
+			addProductPanel.add(productName);
+			productNameField = new JTextField();
+			addProductPanel.add(productNameField);
+			productPrice = new JLabel("Product Price");
+			addProductPanel.add(productPrice);
+			productPriceField = new JTextField();
+			addProductPanel.add(productPriceField);
+			productQuantity = new JLabel("Product Quantity");
+			addProductPanel.add(productQuantity);
+			productQuantityField = new JTextField();
+			addProductPanel.add(productQuantityField);
+			productCategory = new JLabel("Product Category");
+			addProductPanel.add(productCategory);
+			productCategoryField = new JTextField();
+			addProductPanel.add(productCategoryField);
+			addImage.setHorizontalAlignment(SwingConstants.LEFT);
+			addImage.setOpaque(false);
+			addImage.setContentAreaFilled(false);
+			addImage.setBorderPainted(false);
+			addProductPanel.add(addImage);
+			productImage = new JLabel();
+			addProductPanel.add(productImage);
+			addProductFrame.add(addProductPanel);
 		}
 		public JFrame getSellerFrame() {
 			return sellerFrame;
@@ -152,9 +220,119 @@ public class SellerView {
 		public void setPasswordTextField(JPasswordField passwordTextField) {
 			this.passwordTextField = passwordTextField;
 		}
+		public JMenuBar getMenuBar() {
+			return menuBar;
+		}
+		public void setMenuBar(JMenuBar menuBar) {
+			this.menuBar = menuBar;
+		}
+		public JMenu getMenuOptions() {
+			return menuOptions;
+		}
+		public void setMenuOptions(JMenu menuOptions) {
+			this.menuOptions = menuOptions;
+		}
+		public JMenuItem getMenuItemAddProduct() {
+			return menuItemAddProduct;
+		}
+		public JTextField getProductCategoryField() {
+			return productCategoryField;
+		}
+		public void setProductCategoryField(JTextField productCategoryField) {
+			this.productCategoryField = productCategoryField;
+		}
+		public JFrame getAddProductFrame() {
+			return addProductFrame;
+		}
+		public void setAddProductFrame(JFrame addProductFrame) {
+			this.addProductFrame = addProductFrame;
+		}
+		public JPanel getAddProductPanel() {
+			return addProductPanel;
+		}
+		public void setAddProductPanel(JPanel addProductPanel) {
+			this.addProductPanel = addProductPanel;
+		}
+		public GridLayout getAddProductLayout() {
+			return addProductLayout;
+		}
+		public void setAddProductLayout(GridLayout addProductLayout) {
+			this.addProductLayout = addProductLayout;
+		}
+		public JLabel getProductName() {
+			return productName;
+		}
+		public void setProductName(JLabel productName) {
+			this.productName = productName;
+		}
+		public JTextField getProductNameField() {
+			return productNameField;
+		}
+		public void setProductNameField(JTextField productNameField) {
+			this.productNameField = productNameField;
+		}
+		public JLabel getProductPrice() {
+			return productPrice;
+		}
+		public void setProductPrice(JLabel productPrice) {
+			this.productPrice = productPrice;
+		}
+		public JTextField getProductPriceField() {
+			return productPriceField;
+		}
+		public void setProductPriceField(JTextField productPriceField) {
+			this.productPriceField = productPriceField;
+		}
+		public JLabel getProductQuantity() {
+			return productQuantity;
+		}
+		public void setProductQuantity(JLabel productQuantity) {
+			this.productQuantity = productQuantity;
+		}
+		public JTextField getProductQuantityField() {
+			return productQuantityField;
+		}
+		public void setProductQuantityField(JTextField productQuantityField) {
+			this.productQuantityField = productQuantityField;
+		}
+		public JLabel getProductImage() {
+			return productImage;
+		}
+		public void setProductImage(JLabel productImage) {
+			this.productImage = productImage;
+		}
+		public JButton getAddImage() {
+			return addImage;
+		}
+		public void setAddImage(JButton addImage) {
+			this.addImage = addImage;
+		}
+		public JLabel getProductCategory() {
+			return productCategory;
+		}
+		public void setProductCategory(JLabel productCategory) {
+			this.productCategory = productCategory;
+		}
+		public JButton getAddProduct() {
+			return addProduct;
+		}
+		public void setAddProduct(JButton addProduct) {
+			this.addProduct = addProduct;
+		}
+		public void setMenuItemAddProduct(JMenuItem menuItemAddProduct) {
+			this.menuItemAddProduct = menuItemAddProduct;
+		}
 		public void  setSaveDataButtonActionListener(ActionListener actionListener) {
 			saveDataButton.addActionListener(actionListener);
 		}
-		
+		public void  setMenuItemAddProductActionListener(ActionListener actionListener) {
+			menuItemAddProduct.addActionListener(actionListener);
+		}
+		public void setAddImageActionListener(ActionListener actionListener) {
+			addImage.addActionListener(actionListener);
+		}
+		public void setAddProductActionListener(ActionListener actionListener) {
+			addProduct.addActionListener(actionListener);
+		}
 	}
 

@@ -55,7 +55,7 @@ public class ProductController {
 		}
 	}
 	 
-	private void repaintProducts() {
+	public void repaintProducts() {
 		productView.getProductPanel().removeAll();
 		String category = productView.getCategories().getSelectedItem().toString();
 		ArrayList<ProductDto> products = productService.findProducts();
@@ -152,6 +152,8 @@ public class ProductController {
 	
 	public void displayProducts() {
 		ArrayList<CategoryDto> categories = productService.findCategories();
+		productView.getCategories().removeAll();
+		productView.getCategories().addItem("All");
 		for(CategoryDto c: categories) {
 			productView.getCategories().addItem(c.getCategoryName());
 		}

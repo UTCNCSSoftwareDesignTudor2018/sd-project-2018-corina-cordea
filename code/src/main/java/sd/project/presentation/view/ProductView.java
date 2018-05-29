@@ -76,7 +76,6 @@ public class ProductView {
 		
 		categories = new JComboBox<String>();
 		categories.setBounds(130, 25, 150, 20);
-		categories.addItem("All");
 		productFrame.getContentPane().add(categories);
 		
 		productFrame.getContentPane().add(scroll);

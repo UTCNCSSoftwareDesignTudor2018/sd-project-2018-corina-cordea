@@ -20,10 +20,11 @@ public class ClientDto {
 		super();
 	}
 
-	public ClientDto(String clientName, String clientEmail, String clientAddress, String clientCity,
+	public ClientDto(int clientId, String clientName, String clientEmail, String clientAddress, String clientCity,
 			String clientPincode, String clientPhoneNumber, String clientUsername, String clientPassword,
 			List<Order> orders) {
 		super();
+		this.clientId = clientId;
 		this.clientName = clientName;
 		this.clientEmail = clientEmail;
 		this.clientAddress = clientAddress;
@@ -117,6 +118,7 @@ public class ClientDto {
 
 	public static class ClientDtoBuilder {
 
+		private int clientId;
 		private String clientName;
 		private String clientEmail;
 		private String clientAddress;
@@ -127,6 +129,11 @@ public class ClientDto {
 		private String clientPassword;
 		private List<Order> orders;
 
+		public ClientDtoBuilder clientId(int clientId) {
+			this.clientId = clientId;
+			return this;
+		}
+		
 		public ClientDtoBuilder clientName(String clientName) {
 			this.clientName = clientName;
 			return this;
@@ -173,7 +180,7 @@ public class ClientDto {
 		}
 
 		public ClientDto create() {
-			return new ClientDto(clientName, clientEmail, clientAddress, clientCity, clientPincode, clientPhoneNumber,
+			return new ClientDto(clientId, clientName, clientEmail, clientAddress, clientCity, clientPincode, clientPhoneNumber,
 					clientUsername, clientPassword, orders);
 		}
 
