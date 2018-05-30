@@ -26,7 +26,7 @@ public class OrderDetails {
 	private Product product;
 	
 	@Column
-	private String quantity;
+	private float quantity;
 
 	public int getOrderDetailsId() {
 		return orderDetailsId;
@@ -52,11 +52,11 @@ public class OrderDetails {
 		this.product = product;
 	}
 
-	public String getQuantity() {
+	public float getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
 

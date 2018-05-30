@@ -2,6 +2,7 @@ package sd.project.presentation.view;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -66,6 +68,13 @@ public class ClientView {
 	private ListSelectionModel rowSelectionModel;
 	private JButton createOrderButton;
 	
+	private JFrame orderFrame;
+	private JPanel orderPanel;
+	private JRadioButton cashButton;
+	private JRadioButton creditCardButton;
+	private JRadioButton debitCardButton;
+	private ButtonGroup group;
+	private JButton confirmButton;
 	public ClientView() {
 		initialize();
 	}
@@ -88,6 +97,11 @@ public class ClientView {
 		createOrderButton = new JButton("Create Order");
 		products = new JTable();
 		rowSelectionModel = products.getSelectionModel();
+		cashButton = new JRadioButton("Cash On Delivery");
+		creditCardButton = new JRadioButton("Credit Card");
+		debitCardButton = new JRadioButton("Debit Card");
+		group = new ButtonGroup();
+		confirmButton = new JButton("Confirm");
 	}
 	public void createAccount() {
 		accountFrame = new JFrame("Client");
@@ -228,6 +242,40 @@ public class ClientView {
 		cartPanel.add(totalPriceSum);
 		
 		cartFrame.add(cartPanel);
+	}
+	public void placeOrder() {
+		orderFrame = new JFrame("Order");
+		orderFrame.setBounds(0, 0, 350, 250);
+		orderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		orderFrame.setLocationRelativeTo(null);
+		orderFrame.getContentPane().setLayout(null);
+		
+		orderPanel = new JPanel();
+		orderPanel.setLayout(null );
+		orderPanel.setBounds(0, 0, 350, 250);
+		orderPanel.setVisible(true);
+		
+		cashButton.setBounds(100, 50, 150, 15);
+		orderPanel.add(cashButton);
+		cashButton.setActionCommand("Cash On Delivery");
+		
+		creditCardButton.setBounds(100, 75, 150, 15);
+		orderPanel.add(creditCardButton);
+		creditCardButton.setActionCommand("Credit Card");
+		
+		debitCardButton.setBounds(100, 100, 150, 15);
+		orderPanel.add(debitCardButton);
+		debitCardButton.setActionCommand("Debit Card");
+		
+		confirmButton.setBounds(100, 125, 150, 25);
+		orderPanel.add(confirmButton);
+	
+		group = new ButtonGroup();
+		group.add(cashButton);
+		group.add(creditCardButton);
+		group.add(debitCardButton);
+		
+		orderFrame.getContentPane().add(orderPanel);
 	}
 	public JFrame getClientFrame() {
 		return clientFrame;
@@ -451,6 +499,48 @@ public class ClientView {
 	public void setCreateOrderButton(JButton createOrderButton) {
 		this.createOrderButton = createOrderButton;
 	}
+	public JFrame getOrderFrame() {
+		return orderFrame;
+	}
+	public void setOrderFrame(JFrame orderFrame) {
+		this.orderFrame = orderFrame;
+	}
+	public JPanel getOrderPanel() {
+		return orderPanel;
+	}
+	public void setOrderPanel(JPanel orderPanel) {
+		this.orderPanel = orderPanel;
+	}
+	public JRadioButton getCashButton() {
+		return cashButton;
+	}
+	public void setCashButton(JRadioButton cashButton) {
+		this.cashButton = cashButton;
+	}
+	public JRadioButton getCreditCardButton() {
+		return creditCardButton;
+	}
+	public void setCreditCardButton(JRadioButton creditCardButton) {
+		this.creditCardButton = creditCardButton;
+	}
+	public JRadioButton getDebitCardButton() {
+		return debitCardButton;
+	}
+	public void setDebitCardButton(JRadioButton debitCardButton) {
+		this.debitCardButton = debitCardButton;
+	}
+	public ButtonGroup getGroup() {
+		return group;
+	}
+	public void setGroup(ButtonGroup group) {
+		this.group = group;
+	}
+	public JButton getConfirmButton() {
+		return confirmButton;
+	}
+	public void setConfirmButton(JButton confirmButton) {
+		this.confirmButton = confirmButton;
+	}
 	public DefaultTableModel getProductTableModel() {
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Product Name", "Quantity"},0);
 		return tableModel;
@@ -469,5 +559,8 @@ public class ClientView {
 	}
 	public void  setOrderButtonActionListener(ActionListener actionListener) {
 		createOrderButton.addActionListener(actionListener);
+	}
+	public void  setConfirmButtonActionListener(ActionListener actionListener) {
+		confirmButton.addActionListener(actionListener);
 	}
 }

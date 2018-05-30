@@ -7,7 +7,7 @@ public class OrderDetailsDto {
 	private int orderDetailsId;
 	private Order order;
 	private Product product;
-	private String quantity;
+	private float quantity;
 
 	public int getOrderDetailsId() {
 		return orderDetailsId;
@@ -33,11 +33,11 @@ public class OrderDetailsDto {
 		this.product = product;
 	}
 
-	public String getQuantity() {
+	public float getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
 

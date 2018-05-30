@@ -7,4 +7,5 @@ import sd.project.data.entity.Product;
 public interface ProductJpaRepository extends JpaRepository<Product,Integer>{
 	public Product findByProductImage(String image);
 	public Product findByProductName(String name);
+	public Product findByProductId(int id);
 }

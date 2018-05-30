@@ -96,4 +96,8 @@ public class ProductService {
 		category.setCategoryName(name);
 		categoryJpaRepository.save(category);
 	}
+	
+	public Product findById(int id) {
+		return productJpaRepository.findByProductId(id);
+	}
 }

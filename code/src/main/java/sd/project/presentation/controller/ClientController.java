@@ -2,6 +2,7 @@ package sd.project.presentation.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
@@ -13,8 +14,12 @@ import org.springframework.stereotype.Controller;
 
 import sd.project.business.dto.CartProduct;
 import sd.project.business.dto.ClientDto;
+import sd.project.business.dto.OrderDetailsDto;
+import sd.project.business.dto.OrderDto;
 import sd.project.business.dto.ProductDto;
+import sd.project.business.dto.ShoppingCart;
 import sd.project.business.service.ClientService;
+import sd.project.business.service.OrderService;
 import sd.project.business.service.ProductService;
 import sd.project.presentation.view.ClientView;
 
@@ -24,6 +29,8 @@ public class ClientController {
 	ClientService clientService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	OrderService orderService;
 	private ClientDto client;
 	private ClientView clientView;
 	private DefaultTableModel model;
@@ -37,6 +44,8 @@ public class ClientController {
 		clientView.setMenuItemViewCartActionListener(new MenuItemViewCartActionListener());
 		clientView.setTableListener(new TableListSelectionListener());
 		clientView.setDeleteButtonActionListener(new DeleteActionListener());
+		clientView.setOrderButtonActionListener(new OrderButtonActionListener());
+		clientView.setConfirmButtonActionListener(new ConfirmButtonActionListener());
 	}
 
 	private class SaveDataButtonActionListener implements ActionListener {
@@ -115,18 +124,48 @@ public class ClientController {
 			}
 		}
 	}
+	private class OrderButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			clientView.placeOrder();
+			clientView.getOrderFrame().setVisible(true);
+		}
+	}
+	
+	private class ConfirmButtonActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			if(clientView.getShoppingCart().getCart().size()>0) {
+			OrderDto order = new OrderDto();
+			order.setClient(clientService.findById(client.getClientId()));
+			order.setOrderDate(new Date());
+			order.setOrderPaymentMethod(clientView.getGroup().getSelection().getActionCommand());
+			order.setOrderStatus("");
+			order.setOrderTotalPrice(sum);
+			int orderId = orderService.save(order);
+			for (CartProduct p : clientView.getShoppingCart().getCart()) {
+				OrderDetailsDto orderDetails = new OrderDetailsDto();
+				orderDetails.setProduct(productService.findById(p.getProduct().getProductId()));
+				orderDetails.setOrder(orderService.findById(orderId));
+				orderDetails.setQuantity(p.getQuantity());
+				orderService.saveOrderDetails(orderDetails);
+			}
+			clientView.getOrderFrame().dispose();
+			clientView.getCartFrame().dispose();
+			clientView.setShoppingCart(new ShoppingCart());
+			}
+		}
+	}
 	
 	public ClientView getClientView() {
 		return clientView;
 	}
-
 	public void setClientView(ClientView clientView) {
 		this.clientView = clientView;
 	}
 	public ClientDto getClient() {
 		return client;
 	}
-
 	public void setClient(ClientDto client) {
 		this.client = client;
 	}
