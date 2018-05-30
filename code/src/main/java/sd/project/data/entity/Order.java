@@ -1,5 +1,7 @@
 package sd.project.data.entity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -85,9 +87,14 @@ public class Order {
 	}
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus
-				+ ", orderTotalPrice=" + orderTotalPrice + ", orderPaymentMethod=" + orderPaymentMethod + ", client="
-				+ client + ", products=" + products + "]";
+		String productsString ="";
+		for(Product p: products) {
+			productsString += p.toString()+"\n";
+		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return " Order: " + orderId + "\n Date: " + dateFormat.format(orderDate) + "\n Status: " + orderStatus
+				+ "\n Total Price: " + orderTotalPrice + "\n Payment Method: " + orderPaymentMethod + "\n"
+				+ client + "\n" + productsString;
 	}
 	
 }

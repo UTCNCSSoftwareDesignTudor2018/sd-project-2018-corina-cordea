@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -54,6 +55,7 @@ public class ClientView {
 	private JMenuBar menuBar;
 	private JMenu menuOptions;
 	private JMenuItem menuItemViewCart;
+	private JMenuItem menuItemViewOrders;
 	
 	private JFrame cartFrame;
 	private JPanel cartPanel;
@@ -75,6 +77,12 @@ public class ClientView {
 	private JRadioButton debitCardButton;
 	private ButtonGroup group;
 	private JButton confirmButton;
+	
+	private JFrame viewOrdersFrame;
+	private JPanel viewOrdersPanel;
+	private JTable orders;
+	private JTextArea orderTextArea;
+	private ListSelectionModel orderRowSelectionModel;
 	public ClientView() {
 		initialize();
 	}
@@ -91,6 +99,8 @@ public class ClientView {
 		menuBar.add(menuOptions);
 		menuItemViewCart = new JMenuItem("View Cart");
 		menuOptions.add(menuItemViewCart);
+		menuItemViewOrders = new JMenuItem("View Orders");
+		menuOptions.add(menuItemViewOrders);
 		
 		saveDataButton = new JButton("Save Data");
 		deleteProductButton = new JButton("Delete");
@@ -102,6 +112,8 @@ public class ClientView {
 		debitCardButton = new JRadioButton("Debit Card");
 		group = new ButtonGroup();
 		confirmButton = new JButton("Confirm");
+		orders = new JTable();
+		orderRowSelectionModel = orders.getSelectionModel();
 	}
 	public void createAccount() {
 		accountFrame = new JFrame("Client");
@@ -276,6 +288,43 @@ public class ClientView {
 		group.add(debitCardButton);
 		
 		orderFrame.getContentPane().add(orderPanel);
+	}
+	public void viewOrders() {
+		viewOrdersFrame = new JFrame("Orders");
+		viewOrdersFrame.setBounds(0, 0, 600, 400);
+		viewOrdersFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		viewOrdersFrame.setLocationRelativeTo(null);
+		viewOrdersFrame.getContentPane().setLayout(null);
+		
+		viewOrdersPanel = new JPanel();
+		viewOrdersPanel.setLayout(null );
+		viewOrdersPanel.setBounds(0, 0, 600, 400);
+		viewOrdersPanel.setVisible(true);
+		
+		orders.setBounds(50, 30, 500, 150);
+		orders.setVisible(true);	
+		orders.setRowSelectionAllowed(true);
+		orderRowSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		viewOrdersPanel.add(orders);
+		JScrollPane scrollPane = new JScrollPane(orders);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(50, 30, 500, 150);
+		viewOrdersFrame.add(scrollPane);
+		
+		orderTextArea = new JTextArea();
+		orderTextArea.setBounds(50, 200, 500, 150);
+		orderTextArea.setEditable(false);
+		
+		viewOrdersPanel.add(orderTextArea);
+		JScrollPane scrollPaneArea = new JScrollPane(orderTextArea);
+		scrollPaneArea.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneArea.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPaneArea.setBounds(50, 200, 500, 150);
+		viewOrdersFrame.add(scrollPaneArea);
+
+		viewOrdersFrame.add(viewOrdersPanel);
 	}
 	public JFrame getClientFrame() {
 		return clientFrame;
@@ -541,18 +590,64 @@ public class ClientView {
 	public void setConfirmButton(JButton confirmButton) {
 		this.confirmButton = confirmButton;
 	}
+	public JMenuItem getMenuItemViewOrders() {
+		return menuItemViewOrders;
+	}
+	public void setMenuItemViewOrders(JMenuItem menuItemViewOrders) {
+		this.menuItemViewOrders = menuItemViewOrders;
+	}
+	public JFrame getViewOrdersFrame() {
+		return viewOrdersFrame;
+	}
+	public void setViewOrdersFrame(JFrame viewOrdersFrame) {
+		this.viewOrdersFrame = viewOrdersFrame;
+	}
+	public JPanel getViewOrdersPanel() {
+		return viewOrdersPanel;
+	}
+	public void setViewOrdersPanel(JPanel viewOrdersPanel) {
+		this.viewOrdersPanel = viewOrdersPanel;
+	}
+	public JTable getOrders() {
+		return orders;
+	}
+	public void setOrders(JTable orders) {
+		this.orders = orders;
+	}
+	public JTextArea getOrderTextArea() {
+		return orderTextArea;
+	}
+	public void setOrderTextArea(JTextArea orderTextArea) {
+		this.orderTextArea = orderTextArea;
+	}
+	public ListSelectionModel getOrderRowSelectionModel() {
+		return orderRowSelectionModel;
+	}
+	public void setOrderRowSelectionModel(ListSelectionModel orderRowSelectionModel) {
+		this.orderRowSelectionModel = orderRowSelectionModel;
+	}
 	public DefaultTableModel getProductTableModel() {
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Product Name", "Quantity"},0);
 		return tableModel;
 	}
+	public DefaultTableModel getOrderTableModel() {
+		DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Order id", "Date", "Status", "Total Price"},0);
+		return tableModel;
+	}
 	public void setTableListener(ListSelectionListener listListener) {
 		rowSelectionModel.addListSelectionListener(listListener);
+	}
+	public void setOrdersTableListener(ListSelectionListener listListener) {
+		orderRowSelectionModel.addListSelectionListener(listListener);
 	}
 	public void  setSaveDataButtonActionListener(ActionListener actionListener) {
 		saveDataButton.addActionListener(actionListener);
 	}
 	public void  setMenuItemViewCartActionListener(ActionListener actionListener) {
 		menuItemViewCart.addActionListener(actionListener);
+	}
+	public void  setMenuItemViewOrdersActionListener(ActionListener actionListener) {
+		menuItemViewOrders.addActionListener(actionListener);
 	}
 	public void  setDeleteButtonActionListener(ActionListener actionListener) {
 		deleteProductButton.addActionListener(actionListener);

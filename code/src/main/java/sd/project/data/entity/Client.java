@@ -137,9 +137,9 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [clientId=" + clientId + ", clientName=" + clientName + ", clientEmail=" + clientEmail
-				+ ", clientAddress=" + clientAddress + ", clientCity=" + clientCity + ", clientPincode=" + clientPincode
-				+ ", clientPhoneNumber=" + clientPhoneNumber + "]";
+		return " Client Id: " + clientId + "\n Name: " + clientName + "\n Email: " + clientEmail
+				+ "\n Address: " + clientAddress + "\n City: " + clientCity + "\n Pincode: " + clientPincode
+				+ "\n Phone Number: " + clientPhoneNumber;
 	}
 
 	public static class ClientBuilder {

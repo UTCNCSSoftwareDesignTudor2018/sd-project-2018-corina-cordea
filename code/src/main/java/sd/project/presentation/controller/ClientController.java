@@ -2,6 +2,8 @@ package sd.project.presentation.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +48,8 @@ public class ClientController {
 		clientView.setDeleteButtonActionListener(new DeleteActionListener());
 		clientView.setOrderButtonActionListener(new OrderButtonActionListener());
 		clientView.setConfirmButtonActionListener(new ConfirmButtonActionListener());
+		clientView.setMenuItemViewOrdersActionListener(new MenuItemViewOrdersActionListener());
+		clientView.setOrdersTableListener(new OrderTableListSelectionListener());
 	}
 
 	private class SaveDataButtonActionListener implements ActionListener {
@@ -156,7 +160,40 @@ public class ClientController {
 			}
 		}
 	}
+	private class MenuItemViewOrdersActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			clientView.viewOrders();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			model = clientView.getOrderTableModel();
+			clientView.getOrders().setModel(model);
+			List<OrderDto> orders = orderService.findOrdersByClient(clientService.findById(client.getClientId()));
+			for (OrderDto o : orders) {
+				int id = o.getOrderId();
+				Date date = o.getOrderDate();
+				String status = o.getOrderStatus();
+				float totalPrice = o.getOrderTotalPrice();
+				model.addRow(new Object[] { id, dateFormat.format(date), status, totalPrice });
+			}
+			clientView.getViewOrdersFrame().setVisible(true);
+		}
+	}
 	
+	private class OrderTableListSelectionListener implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			if (!e.getValueIsAdjusting()) {
+				row = clientView.getOrders().getSelectedRow();
+				if (row > -1) {
+					int id = Integer.parseInt(model.getValueAt(row, 0).toString());
+					clientView.getOrderTextArea().setText(orderService.findById(id).toString());
+					clientView.getRowSelectionModel().clearSelection();
+				}
+			}
+		}
+
+	}
 	public ClientView getClientView() {
 		return clientView;
 	}
