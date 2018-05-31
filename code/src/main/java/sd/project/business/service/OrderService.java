@@ -21,6 +21,8 @@ public class OrderService {
 	OrderJpaRepository orderJpaRepository;
 	@Autowired
 	OrderDetailsJpaRepository orderDetailsJpaRepository;
+	@Autowired
+	ClientService clientService;
 	private List<Observer> observers = new ArrayList<Observer>();
 	public int save(OrderDto orderDto) {
 		Order order = new Order();
@@ -60,6 +62,9 @@ public class OrderService {
 			ordersDto.add(oDto);
 		}
 		return ordersDto;
+	}
+	public List<OrderDto> findClientOrders(int id){
+		return findOrdersByClient(clientService.findById(id));
 	}
 	public List<OrderDto> findOrders(){
 		List<Order> orders = orderJpaRepository.findAll();

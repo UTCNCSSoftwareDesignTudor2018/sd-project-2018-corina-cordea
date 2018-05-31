@@ -59,7 +59,7 @@ public class MainController {
 								productController.setProductView(productView);
 								productController.displayProducts();
 								productController.setListeners();
-								productController.setUserType("client");
+								productView.setUserType("client");
 								clientView.setClientFrame(productView.getProductFrame());
 								clientView.getClientFrame().add(clientView.getMenuBar());
 								clientView.getClientFrame().setVisible(true);
@@ -82,7 +82,7 @@ public class MainController {
 								productController.setProductView(productView);
 								productController.displayProducts();
 								productController.setListeners();
-								productController.setUserType("seller");
+								productView.setUserType("seller");
 								sellerView.setSellerFrame(productView.getProductFrame());
 								sellerView.getSellerFrame().add(sellerView.getMenuBar());
 								sellerView.getSellerFrame().setVisible(true);

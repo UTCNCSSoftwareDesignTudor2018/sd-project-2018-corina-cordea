@@ -141,7 +141,8 @@ public class ClientController implements Observer{
 	private class ConfirmButtonActionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			if(clientView.getShoppingCart().getCart().size()>0) {
+			List<CartProduct> cart = clientView.getShoppingCart().getCart();
+			if(cart.size()>0) {
 			OrderDto order = new OrderDto();
 			order.setClient(clientService.findById(client.getClientId()));
 			order.setOrderDate(new Date());
@@ -149,7 +150,7 @@ public class ClientController implements Observer{
 			order.setOrderStatus("");
 			order.setOrderTotalPrice(sum);
 			int orderId = orderService.save(order);
-			for (CartProduct p : clientView.getShoppingCart().getCart()) {
+			for (CartProduct p : cart) {
 				OrderDetailsDto orderDetails = new OrderDetailsDto();
 				orderDetails.setProduct(productService.findById(p.getProduct().getProductId()));
 				orderDetails.setOrder(orderService.findById(orderId));
@@ -169,7 +170,7 @@ public class ClientController implements Observer{
 			orderController = new OrderController(orderView);
 			orderController.setOrderService(orderService);
 			orderController.setListeners();
-			orderController.viewClientOrders();
+			orderController.viewClientOrders(client.getClientId());
 		}
 	}
 	public void addToList() {
@@ -189,6 +190,6 @@ public class ClientController implements Observer{
 	}
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		orderController.repaintOrders();
+		orderController.repaintOrders(client.getClientId());
 	}
 }

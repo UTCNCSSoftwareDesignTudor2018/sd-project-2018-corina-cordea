@@ -5,5 +5,4 @@ Cordea Corina
                   Many-To-Many: Order - Product
 4. Spring, Hibernate
 5. Maven
-6. Mockito, JUnit
-7. Validator classes 
+6. Validator classes 

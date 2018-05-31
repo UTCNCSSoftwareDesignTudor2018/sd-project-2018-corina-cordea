@@ -43,6 +43,7 @@ public class ProductView {
 	private JButton addToCart;
 	private JLabel desiredQuantity;
 	private JTextField desiredQuantityField;
+	private String userType;
 	public ProductView() {
 		initialize();
 	}
@@ -338,6 +339,14 @@ public class ProductView {
 
 	public JButton getChangeImage() {
 		return changeImage;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 	public void setChangeImage(JButton changeImage) {

@@ -37,7 +37,6 @@ public class ProductController {
 	public ProductController(ProductView productView) {
 		super();
 		this.productView = productView;
-		
 	}
 	
 	public void setListeners() {
@@ -77,7 +76,7 @@ public class ProductController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			product = productService.findProductByImage(e.getActionCommand());
-			if(userType.equals("seller")) {
+			if(productView.getUserType().equals("seller")) {
 				productView.updateProduct();
 			}else {
 				productView.viewProduct();

@@ -83,12 +83,12 @@ public class OrderController {
 		orderView.getViewOrdersFrame().setVisible(true);
 	}
 	
-	public void viewClientOrders() {
+	public void viewClientOrders(int clientId) {
 		orderView.viewClientOrders();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		modelClient = orderView.getOrderTableModel();
 		orderView.getClientOrders().setModel(modelClient);
-		List<OrderDto> orders = orderService.findOrders();
+		List<OrderDto> orders = orderService.findClientOrders(clientId);
 		for (OrderDto o : orders) {
 			int id = o.getOrderId();
 			Date date = o.getOrderDate();
@@ -108,16 +108,15 @@ public class OrderController {
 			orderService.updateOrder(order);
 			model.setValueAt(orderView.getStatusTextField().getText(), selectedRow, 2);
 			getModel().fireTableDataChanged();
-			orderView.getClientOrders().repaint();
 			orderView.getOrderTextArea().setText(orderService.findById(id).toString());
 			orderView.getClientOrderRowSelectionModel().clearSelection();
 		}	
 	}
-	public void repaintOrders() {
+	public void repaintOrders(int clientId) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		modelClient.setRowCount(0);
 		orderView.getClientOrders().setModel(modelClient);
-		List<OrderDto> orders = orderService.findOrders();
+		List<OrderDto> orders = orderService.findClientOrders(clientId);
 		for (OrderDto o : orders) {
 			int id = o.getOrderId();
 			Date date = o.getOrderDate();
