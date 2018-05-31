@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 
 import sd.project.business.dto.ProductDto;
 import sd.project.business.dto.SellerDto;
+import sd.project.business.service.OrderService;
 import sd.project.business.service.ProductService;
 import sd.project.business.service.SellerService;
+import sd.project.presentation.view.OrderView;
 import sd.project.presentation.view.SellerView;
 
 @Controller
@@ -27,6 +29,8 @@ public class SellerController {
 	ProductController productController;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	OrderService orderService;
 	SellerDto seller;
 
 	public SellerController(SellerView sellerView) {
@@ -36,6 +40,7 @@ public class SellerController {
 		sellerView.setMenuItemAddProductActionListener(new MenuItemAddProductActionListener());
 		sellerView.setAddImageActionListener(new AddImageActionListener());
 		sellerView.setAddProductActionListener(new AddProductActionListener());
+		sellerView.setMenuItemViewOrdersActionListener(new MenuItemViewOrdersActionListener());
 	}
 
 	private class SaveDataButtonActionListener implements ActionListener {
@@ -95,7 +100,17 @@ public class SellerController {
 			sellerView.getAddProductFrame().dispose();
 		}
 	}
-
+	private class MenuItemViewOrdersActionListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			OrderView orderView = new OrderView();
+			OrderController orderController = new OrderController(orderView);
+			orderController.setOrderService(orderService);
+			orderController.setListeners();
+			orderController.viewOrders();
+		}
+	}
+	
 	public SellerView getSellerView() {
 		return sellerView;
 	}

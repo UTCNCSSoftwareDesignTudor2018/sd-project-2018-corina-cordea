@@ -76,7 +76,7 @@ public class Product {
 	public String toString() {
 		return " Product Id: " + productId + "\n Name: " + productName + "\n Price: " + productPrice
 				+ "\n Quantity: " + productQuantity 
-				+ "\n Seller Name:" + seller.getSellerName() + "\n Category: " + category.getCategoryName();
+				+ "\n Seller Name: " + seller.getSellerName() + "\n Category: " + category.getCategoryName();
 	}
 	
 }

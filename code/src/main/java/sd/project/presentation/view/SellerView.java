@@ -35,6 +35,7 @@ public class SellerView {
 		private JMenuBar menuBar;
 		private JMenu menuOptions;
 		private JMenuItem menuItemAddProduct;
+		private JMenuItem menuItemViewOrders;
 		
 		private JTextField productCategoryField;
 		private JFrame addProductFrame;
@@ -50,6 +51,9 @@ public class SellerView {
 		private JButton addImage;
 		private JLabel productCategory;
 		private JButton addProduct;
+		
+		
+		
 		public SellerView() {
 			initialize();
 		}
@@ -66,6 +70,8 @@ public class SellerView {
 			menuBar.add(menuOptions);
 			menuItemAddProduct = new JMenuItem("Add Product");
 			menuOptions.add(menuItemAddProduct);
+			menuItemViewOrders = new JMenuItem("View Orders");
+			menuOptions.add(menuItemViewOrders);
 			
 			saveDataButton = new JButton("Save Data");
 			addProduct = new JButton("Add Product");
@@ -154,6 +160,7 @@ public class SellerView {
 			addProductPanel.add(productImage);
 			addProductFrame.add(addProductPanel);
 		}
+		
 		public JFrame getSellerFrame() {
 			return sellerFrame;
 		}
@@ -322,6 +329,13 @@ public class SellerView {
 		public void setMenuItemAddProduct(JMenuItem menuItemAddProduct) {
 			this.menuItemAddProduct = menuItemAddProduct;
 		}
+		public JMenuItem getMenuItemViewOrders() {
+			return menuItemViewOrders;
+		}
+		public void setMenuItemViewOrders(JMenuItem menuItemViewOrders) {
+			this.menuItemViewOrders = menuItemViewOrders;
+		}
+	
 		public void  setSaveDataButtonActionListener(ActionListener actionListener) {
 			saveDataButton.addActionListener(actionListener);
 		}
@@ -333,6 +347,9 @@ public class SellerView {
 		}
 		public void setAddProductActionListener(ActionListener actionListener) {
 			addProduct.addActionListener(actionListener);
+		}
+		public void  setMenuItemViewOrdersActionListener(ActionListener actionListener) {
+			menuItemViewOrders.addActionListener(actionListener);
 		}
 	}
 

@@ -65,6 +65,7 @@ public class MainController {
 								clientView.getClientFrame().setVisible(true);
 								clientView.getClientFrame().setTitle("Client");
 								clientController.setClientView(clientView); 
+								clientController.addToList();
 							}
 						}
 						catch (Exception e) {
